@@ -1,0 +1,93 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+variables:
+  VENDOR_URLS: localhost:8080
+  ImageName: htp-portal-backend
+
+trigger:
+- master
+- main
+- feature/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+
+stages:
+- stage: Build_Docker
+  displayName: Build image (Docker)
+  jobs:
+  - job: Build
+    displayName: Build Docker
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerInstaller@0
+      displayName: DockerInstaller - 18.06.1-ce
+      inputs:
+        dockerVersion: '18.06.1-ce'
+    - task: Docker@2
+      displayName: Build $(ImageName)
+      inputs:
+        repository: '$(ImageName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        container: $(ImageName)
+        tags: latest
+        arguments: -t $(ImageName):$(Build.BuildId)
+
+    - task: Docker@0
+      displayName: show all docker images
+      inputs:
+        action: Run a Docker command
+        customCommand: 'images'
+
+    - task: Docker@0
+      displayName: save $(ImageName):$(Build.BuildId)
+      inputs:
+        action: Run a Docker command
+        customCommand: 'save -o $(Build.ArtifactStagingDirectory)/$(ImageName).tar $(ImageName):$(Build.BuildId)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).docker'
+        publishLocation: 'Container'
+
+
+- stage: Build_Core
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'
+      
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+      
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)'
+        Contents: 'target/**/*.jar'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      condition: succeededOrFailed()
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).java'
+      condition: succeededOrFailed()

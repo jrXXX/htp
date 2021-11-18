@@ -1,0 +1,50 @@
+frontEndUrl: frontEndUrl
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    password: SimplePassword
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: DEBUG
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: DEBUG
+    root: INFO
+spring:
+  datasource:
+    data: classpath:data-h2.sql
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    password: ENC(ztDZaj2w4vGpzOWPIypq3Q==)
+    platform: h2
+    schema: classpath:schema-h2.sql
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      
+      ddl-auto: none
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 861588806933-c4mvhebo2p2c9nqvab869vqamcr5lphv.apps.googleusercontent.com
+            client-secret: QnJIWMnSjVUff6UqGX5EBfG8
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs

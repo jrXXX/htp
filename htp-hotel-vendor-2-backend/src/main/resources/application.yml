@@ -1,0 +1,43 @@
+frontEndUrl: ${FRONT_END_URL:http://localhost:3000}
+spring:
+  mustache:
+    check-template-location: false
+  datasource:
+    url: ${DB_URL:jdbc:h2:mem:test;DB_CLOSE_DELAY=-1}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    initialization-mode: always
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  h2:
+    console:
+      enabled: true
+  kafka:
+    producer:
+      #client-id: hotel-backend
+      bootstrap-servers:  ${BROKERS:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+# Database initialising provided by Spring Boot is meant to be used only with embedded databases.
+# So it more or less assumes that you have to initialise the database on every start of the application.
+# For the proper initialising and evolution of persistent databases use Flyway or Liquibase
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+
+logging:
+  level:
+    root: info
+server:
+  port: ${SERVER_PORT:8080}
+vendor:
+  id: ${CURRENT_VENDOR_ID:htp-hotel-vendor-2}

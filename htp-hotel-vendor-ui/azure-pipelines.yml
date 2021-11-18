@@ -1,0 +1,94 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+- master
+- feature/*
+
+variables:
+  uiSource: 'src'
+  uiBuild: 'build'
+  ImageName: htp-vendor-ui
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build_Docker
+  displayName: Build image (Docker)
+  jobs:
+  - job: Build
+    displayName: Build Docker
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerInstaller@0
+      displayName: DockerInstaller - 18.06.1-ce
+      inputs:
+        dockerVersion: '18.06.1-ce'
+    - task: Docker@2
+      displayName: Build $(ImageName)
+      inputs:
+        repository: '$(ImageName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        container: $(ImageName)
+        tags: latest
+        arguments: -t $(ImageName):$(Build.BuildId)
+
+    - task: Docker@0
+      displayName: show all docker images
+      inputs:
+        action: Run a Docker command
+        customCommand: 'images'
+
+    - task: Docker@0
+      displayName: save $(ImageName):$(Build.BuildId)
+      inputs:
+        action: Run a Docker command
+        customCommand: 'save -o $(Build.ArtifactStagingDirectory)/$(ImageName).tar $(ImageName):$(Build.BuildId)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).docker'
+        publishLocation: 'Container'
+
+
+- stage: Build_Core
+  displayName: Build image (.Net Core)
+  jobs:
+  - job: Build
+    displayName: Build (.Net Core)
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+          pushd $(uiSource)
+          npm install
+          npm run build
+          popd
+      displayName: 'Build React App'
+    
+    - task: ArchiveFiles@2
+      displayName: Archive
+      inputs:
+        rootFolderOrFile: '$(uiBuild)'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Artifacts
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).react'
+        publishLocation: 'Container'

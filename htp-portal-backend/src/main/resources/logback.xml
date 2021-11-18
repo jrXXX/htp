@@ -1,0 +1,24 @@
+<configuration>
+	<!-- use Spring default values -->
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="AI_APPENDER"
+		class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="AI_APPENDER" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+	<logger name="org.springframework.web" level="INFO" />
+</configuration>

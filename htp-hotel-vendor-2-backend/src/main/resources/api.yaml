@@ -1,0 +1,345 @@
+openapi: 3.0.1
+info:
+  title: Holiday Tech Project
+  version: 0.0.1
+  description: YAML Swagger Configuration for Holiday Tech Project
+
+paths:
+  /roomBooking:
+    post:
+      summary: Do the Booking
+      tags:
+        - booking
+      operationId: bookRoom
+      requestBody:
+        description: Book a room
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BookingResponse'
+      x-codegen-request-body-name: booking
+      
+  /hotelSearch:
+    post:
+      summary: Search hotels
+      tags:
+        - hotel
+      operationId: searchHotels
+      requestBody:
+        description: search for hotels
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+        required: true
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResponse'
+ 
+components:
+  schemas:
+    Hotel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          example: Bellevue Palace
+        country:
+          $ref: '#/components/schemas/Country'
+        stars:
+          type: integer
+          example: 5
+        zipCode:
+          type: string
+          example: 3011
+        city:
+          type: string
+          example: Bern
+        street:
+          type: string
+          example: Kochergasse
+        houseNumber:
+          type: string
+          example: 3-5
+        homepage:
+          type: string
+          example: https://www.bellevue-palace.ch
+        facilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Facility'
+        image:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        rooms: 
+          type: array
+          items:
+            $ref: '#/components/schemas/Room'
+    Facility:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          example: Pool
+    FacilityAssignments:
+      type: object
+      properties:
+        hotelId:
+          type: integer
+          format: int64
+          readOnly: true
+        facilityId:
+          type: integer
+          format: int64
+          readOnly: true
+    Country:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          example: Switzerland
+        code:
+          type: string
+          example: CH
+    #https://picsum.photos/v2/list
+    Image:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          example: Landscape
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+        image:
+          type: string
+        thumbImage:
+          type: string
+        alt:
+          type: string
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: string
+          example: 101
+        type:
+          type: string
+          example: KING
+          enum:
+            - KING
+            - QUEEN
+            - DOUBLE 
+            - SINGLE
+            - TRIPLE
+            - QUAD
+            - TWIN
+            - DOUBLE_DOUBLE
+            - STUDIO
+        price: 
+          type: integer
+          example: 100
+        currency:
+          default: CHF
+          type: string
+          example: CHF
+          enum:
+            - CHF
+            - EUR 
+        deepLink:
+          type: string
+          example: frontEndUrl?roomName=A101&roomPrice=105&roomType=double&bookFrom=2021-05-21&bookTo=2021-05-24
+    SearchRequest:
+      type: object
+      properties:
+        destinationCountry:
+          type: string
+          example: Switzerland
+        destinationPostalCode:
+          type: string
+          example: "8004"
+        destinationCity:
+          type: string
+          example: Bern
+        hotelName:
+          type: string
+          example: Bellevue Palace
+        priceFrom:
+          type: integer
+          example: 100
+        priceTo:
+          type: integer
+          example: 200
+        currency:
+          type: string
+          example: CHF
+          enum:
+            - CHF
+            - EUR
+        dateFrom:
+          type: string
+          format: date
+          example: "2021-01-25"
+        dateTo:
+          type: string
+          format: date
+          example: "2021-01-30"
+        numberOfGuests:
+          type: integer
+          example: 5
+        facilityList:
+          type: array
+          items:
+            $ref: '#/components/schemas/Facility'
+    SearchResponse:
+      type: object
+      properties:
+        currency:
+          type: string
+          example: CHF
+          enum:
+            - CHF
+            - EUR
+        dateFrom:
+          type: string
+          format: date
+          example: "2021-01-30"
+        dateTo:
+          type: string
+          format: date
+          example: "2021-01-30"
+        numberOfGuests:
+          type: integer
+          example: 5
+        hotel:
+          $ref: '#/components/schemas/Hotel'
+    BookingRequest:
+      type: object
+      properties:
+        dateFrom:
+          type: string
+          format: date
+          example: "2021-01-30"
+        dateTo:
+          type: string
+          format: date
+          example: "2021-01-30"
+        portalRef:
+          type: string
+          example: "Base64 encoded portalID. Default value is HTP_PORTAL"
+        customerName:
+          type: string
+          example: Max Mustermann
+        customerEmail:
+          type: string
+          example: Max.Mustermann@akros.ch
+        customerPhonenumber:
+          type: string
+          example: 004157478741
+        room:
+          $ref: '#/components/schemas/Room'
+          
+    BookingResponse:
+      type: object
+      properties: 
+        roomPaid: 
+          type: boolean
+        dateFrom:
+          type: string
+          format: date
+          example: "2021-01-30"
+        dateTo:
+          type: string
+          format: date
+          example: "2021-01-30"
+        responseMessage:
+          type: string
+          example: OK
+        responseStatus:
+          type: integer
+          example: 404
+        room: 
+          $ref: '#/components/schemas/Room'
+
+    BookingConfirmation:
+      type: object
+      properties:
+        roomPaid:
+          type: boolean
+        dateFrom:
+          type: string
+          format: date
+          example: "2021-01-30"
+        dateTo:
+          type: string
+          format: date
+          example: "2021-01-30"
+        customerName:
+          type: string
+          example: Max Mustermann
+        customerEmail:
+          type: string
+          example: Max.Mustermann@akros.ch
+        customerPhonenumber:
+          type: string
+          example: 004157478741
+        bookingDate:
+          type: string
+          example: "2021-01-30"
+        bookingPrice:
+          type: string
+          example: 540
+        currency:
+          type: string
+          example: CHF
+        vendorId:
+          type: string
+          example: htp-hotel-vendor-2
+        bookingId:
+          type: string
+          example: 152

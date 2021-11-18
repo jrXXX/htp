@@ -1,0 +1,31 @@
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    password: SimplePassword
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: DEBUG
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: DEBUG
+    root: INFO
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 861588806933-c4mvhebo2p2c9nqvab869vqamcr5lphv.apps.googleusercontent.com
+            client-secret: QnJIWMnSjVUff6UqGX5EBfG8
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs

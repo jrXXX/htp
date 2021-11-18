@@ -1,0 +1,47 @@
+DROP TABLE IF EXISTS country;
+DROP TABLE IF EXISTS hotel;
+DROP TABLE IF EXISTS facility;
+DROP TABLE IF EXISTS image;
+
+
+CREATE TABLE country (
+country_id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+country_name VARCHAR(100) NOT NULL,
+country_code VARCHAR(4) NOT Null
+);
+
+
+CREATE TABLE hotel (
+hotel_id BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+hotel_name VARCHAR(100) NOT NULL,
+stars INT(1) NOT NULL,
+homepage VARCHAR(200) NOT NULL,
+house_number VARCHAR(120) NOT NULL,
+street VARCHAR(120) NOT NULL,
+city VARCHAR(50) NOT NULL,
+zip_code VARCHAR(10) NOT NULL,
+price INT NOT NULL,
+country_id BIGINT NOT NULL
+);
+
+
+CREATE TABLE facility (
+facility_id BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+facility_name VARCHAR(100) NOT NULL,
+hotel_id BIGINT  NOT NULL
+) ;
+
+CREATE TABLE facility_assignment (
+id BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+facility_id BIGINT NOT NULL,
+hotel_id BIGINT NOT NULL
+) ;
+
+CREATE TABLE image (
+image_id BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+image_name VARCHAR(100) NOT NULL,
+image_width INT NOT NULL,
+image_height INT NOT NULL,
+image_download_url VARCHAR(255) NOT NULL,
+hotel_id BIGINT  NOT NULL
+) ;
