@@ -127,12 +127,6 @@
 			<version>${org.mapstruct.version}</version>
 		</dependency>
 
-		<!-- enabling kafka support -->
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>

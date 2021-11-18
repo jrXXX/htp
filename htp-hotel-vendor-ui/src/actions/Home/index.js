@@ -42,17 +42,14 @@ export const bookRoom = (bookRequest) => async dispatch =>{
         type: BookingType.BOOKING_ROOM_STARTED
     })
     try {
-
-        let _bookingResource = (process.env.REACT_APP_BACKEND_BOOKING_RESOURCE || '').trim() || "/roomBooking"
-        const booking = await Axios.post(process.env.REACT_APP_BACKEND_HOST.trim()+"/" + _bookingResource, bookRequest);
-
+        let _bookingResource = process.env.REACT_APP_BACKEND_BOOKING_RESOURCE || "/roomBooking"
+        const booking = await Axios.post(process.env.REACT_APP_BACKEND_HOST+"/" + _bookingResource, bookRequest);
+        
         dispatch({
             type: BookingType.BOOKING_ROOM_SUCCEDED,
             payload: getPayloadFromSuccededResponse(booking)
         })
     } catch (error) {
-        // alert("error = " + JSON.stringify(error))
-
         dispatch({
             type: BookingType.BOOKING_ROOM_FAILED,
             payload: getPayloadFromFailedResponse(error),

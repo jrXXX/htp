@@ -269,21 +269,9 @@ components:
           type: string
           format: date
           example: "2021-01-30"
-        portalRef:
-          type: string
-          example: "Base64 encoded portalID. Default value is HTP_PORTAL"
-        customerName:
-          type: string
-          example: Max Mustermann
-        customerEmail:
-          type: string
-          example: Max.Mustermann@akros.ch
-        customerPhonenumber:
-          type: string
-          example: 004157478741
-        room:
+        room: 
           $ref: '#/components/schemas/Room'
-          
+        
     BookingResponse:
       type: object
       properties: 
@@ -305,41 +293,3 @@ components:
           example: 404
         room: 
           $ref: '#/components/schemas/Room'
-
-    BookingConfirmation:
-      type: object
-      properties:
-        roomPaid:
-          type: boolean
-        dateFrom:
-          type: string
-          format: date
-          example: "2021-01-30"
-        dateTo:
-          type: string
-          format: date
-          example: "2021-01-30"
-        customerName:
-          type: string
-          example: Max Mustermann
-        customerEmail:
-          type: string
-          example: Max.Mustermann@akros.ch
-        customerPhonenumber:
-          type: string
-          example: 004157478741
-        bookingDate:
-          type: string
-          example: "2021-01-30"
-        bookingPrice:
-          type: string
-          example: 540
-        currency:
-          type: string
-          example: CHF
-        vendorId:
-          type: string
-          example: htp-hotel-vendor-2
-        bookingId:
-          type: string
-          example: 152

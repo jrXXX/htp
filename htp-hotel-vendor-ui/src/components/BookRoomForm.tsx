@@ -25,7 +25,6 @@ export function BookRoomForm(props: any) {
   const _bookFrom = new URLSearchParams(_search).get('bookFrom');
   const _bookTo = new URLSearchParams(_search).get('bookTo');
   const _vendorType = props.vendorType;
-  const _portalRef = props.portalRef;
   const _currency = new URLSearchParams(_search).get('currency');
   
   var _name = ""
@@ -46,12 +45,12 @@ export function BookRoomForm(props: any) {
   const [phone, setPhone] = useState(_phone);
   const [guestCount, setGuestCount] = useState(_guestCount);
   const [roomName, ] = useState(_roomName);
+  const [roomPrice, ] = useState(_roomPrice);
 
   //SINGLE, DOUBLE, TRIPLE, QUAD, QUEEN, KING, TWIN, DOUBLE_DOUBLE, STUDIO
   const [roomType, setRoomType] = useState(_roomType?.toString().toUpperCase());
   const [dateFrom, setDateFrom] = useState(_bookFrom?.toString());
   const [dateTo, setDateTo] = useState(_bookTo?.toString());
-  const [roomPrice, setRoomPrice] = useState(_roomPrice?.toString());
 
 
   props.setVendorType(_vendorType === "java"?"JAVA":".NET");
@@ -61,18 +60,14 @@ export function BookRoomForm(props: any) {
  
       var _bookRequest = {};
       if (_vendorType === "java"){
-
           _bookRequest = {
-            customerName: name,
-            customerEmail: email,
-            customerPhonenumber: phone,
+            name,
+            email,
+            phone,
             dateFrom,
             dateTo,
-            portalRef: _portalRef,
             room:{
               id: _roomId,
-              price: _roomPrice,
-              currency: _currency || "CHF"
             }
           }     
       }else
@@ -85,13 +80,11 @@ export function BookRoomForm(props: any) {
           },
           dateFrom: dateFrom,
           dateTo: dateTo,
-          portalRef: _portalRef,
           room: {
             roomName,
             roomType,
             roomPrice,
             id: _roomId,
-            price: _roomPrice,
             currency : _currency || "CHF"
           },
         };   
@@ -222,22 +215,6 @@ let [color] = useState("#3e3e3e");
                         </div>
                       </div>
                     </div>
-
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                          <input
-                            className="form-control"
-                            type="number"
-                            value={roomPrice}
-                            onChange={e => setRoomPrice(e.target.value)}
-                            required
-                          />
-                        <span className="form-label">Room Price</span>
-                      </div>
-                    </div>
-                  </div>
-
                     <div className="form-btn"> 
                       <button className="submit-btn">Book Now</button><div className="bookresult">
                       <BarLoader color={color} loading={props.bookingState === BOOKING_ROOM_STARTED} css={override} height={16} width={"100%"} speedMultiplier={0.8} ></BarLoader>
@@ -310,8 +287,6 @@ const mapStateToProps = (state : any, props: any) => {
   // the first method is the query them directly at the function
   // and the second methos is querying theses data here in the mapStateToProps block
 
-
-  // alert(process.env.REACT_APP_BACKEND_HOST)
   const _search = props.location.search;
   const _roomType = new URLSearchParams(_search).get('roomType');
   const _roomId = new URLSearchParams(_search).get('id');
@@ -319,7 +294,6 @@ const mapStateToProps = (state : any, props: any) => {
   const _bookFrom = new URLSearchParams(_search).get('bookFrom');
   const _bookTo = new URLSearchParams(_search).get('bookTo');
   const _roomName = new URLSearchParams(_search).get('roomName');
-  const _portalRef = new URLSearchParams(_search).get('_ref');
 
   const _vendorType=process.env.REACT_APP_VENDOR_TYPE
   return {        
@@ -332,8 +306,7 @@ const mapStateToProps = (state : any, props: any) => {
     bookingState: homeStore?.bookingState,
     bookingMessage: homeStore?.bookingMessage,
     bookingResult: homeStore?.bookingResult,
-    vendorType: (_vendorType || '' as string).trim(),
-    portalRef: (_portalRef || '' as string).trim(),
+    vendorType: _vendorType,
 };
 };
 

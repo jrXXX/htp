@@ -77,14 +77,6 @@ function BookingForm() {
                       </div>
                     </div>
                   </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <input className="form-control" type="price" required />
-                        <span className="form-label">Room Price</span>
-                      </div>
-                    </div>
-                  </div>
                   <div className="form-btn">
                     <button className="submit-btn">Book Now</button>
                   </div>

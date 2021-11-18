@@ -36,20 +36,18 @@ public class Booking {
 
 	@Column(name = "booked_to")
 	private LocalDate bookedTo;
-
-	@Column(name = "price")
-	private Integer price;
-
+	
 	@ManyToOne
 	@JoinColumn(referencedColumnName = "id", name = "room_id", foreignKey = @ForeignKey(name = "room_id_booking_fk"))
 	private RoomEntity room;
 
-	public Booking(LocalDate bookedFrom, LocalDate bookedTo, RoomEntity room, Integer price) {
+	public Booking(LocalDate bookedFrom, LocalDate bookedTo, RoomEntity room) {
 		super();
 		this.bookedFrom = bookedFrom;
 		this.bookedTo = bookedTo;
 		this.room = room;
-		this.price = price;
 	}
+	
+	
 
 }

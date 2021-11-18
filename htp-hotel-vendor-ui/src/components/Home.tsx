@@ -12,7 +12,6 @@ export function Home(props: any) {
   // const _roomPrice = new URLSearchParams(_search).get('roomPrice');
   const _bookFrom = new URLSearchParams(_search).get('bookFrom');
   const _bookTo = new URLSearchParams(_search).get('bookTo');
-  const _roomPrice = new URLSearchParams(_search).get('roomPrice');
   var _name = ""
   var _email = ""
   var _phone = ""
@@ -37,7 +36,6 @@ export function Home(props: any) {
   const [roomType, setRoomType] = useState(_roomType?.toString().toUpperCase());
   const [dateFrom, setDateFrom] = useState(_bookFrom?.toString());
   const [dateTo, setDateTo] = useState(_bookTo?.toString());
-  const [roomPrice, setRoomPrice] = useState(_roomPrice?.toString());
 
   const handleSubmit = (evt: any) => {
       evt.preventDefault();
@@ -52,7 +50,7 @@ export function Home(props: any) {
           id: _roomId,
            // name: _roomName , // according to the actual java backend, the only relevant information here is the roomId
            // type : roomType, // according to the actual java backend, the only relevant information here is the roomId
-          price: _roomPrice // according to the actual java backend, the only relevant information here is the roomId
+           // price: _roomPrice // according to the actual java backend, the only relevant information here is the roomId
         }
       }
       props.bookRoom(_bookRequest);
@@ -169,23 +167,6 @@ export function Home(props: any) {
                         </div>
                       </div>
                     </div>
-
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <input className="form-control" type="price" required />
-                          <input
-                            className="form-control"
-                            type="number"
-                            value={roomPrice}
-                            onChange={e => setRoomPrice(e.target.value)}
-                            required
-                          />
-                        <span className="form-label">Room Price</span>
-                      </div>
-                    </div>
-                  </div>
-
                     <div className="form-btn"> 
                       <button className="submit-btn">Book Now</button>
                       {props.bookingResult>=400 && <label className="error-msg">{props.bookingMessage}</label>}

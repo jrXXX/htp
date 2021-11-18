@@ -24,29 +24,3 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
-  cloud:
-    stream:
-      bindings:
-        booking-confirmation-channel:
-          destination: ${PORTAL_ID:HTP_PORTAL}
-      kafka:
-        streams:
-          binder:
-            brokers: ${BROKERS}
-            configuration:
-              default:
-                key: org.apache.kafka.common.serialization.Serdes$StringSerde
-                value: io.confluent.kafka.streams.serdes.json.KafkaJsonSchemaSerde
-
-azure:
-  cosmos.uri: ${COSMOS_URI:https://cat-cosmos-db.documents.azure.com:443/}
-  # Specify the DNS URI of your Azure Cosmos DB.
-
-  cosmos.key: ${COSMOS_KEY}
-  # Specify the access key for your database.
-
-  cosmos.database: ${COSMOS_DB}
-  # Specify the name of your database.
-
-  # cosmos.populateQueryMetrics: true
-  # example copied from microsoft official page : https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-cosmos-db

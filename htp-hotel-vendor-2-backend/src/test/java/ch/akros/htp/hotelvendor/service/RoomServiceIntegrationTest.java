@@ -51,7 +51,7 @@ public class RoomServiceIntegrationTest {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
 		a101.setId(1L);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 20), LocalDate.of(2021, 6, 24), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 20), LocalDate.of(2021, 6, 24), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -72,8 +72,8 @@ public class RoomServiceIntegrationTest {
 	public void filterHotelMoreThanOneBookingsTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking1 = new Booking(LocalDate.of(2021, 6, 20), LocalDate.of(2021, 6, 24), a101, 150);
-		Booking booking2 = new Booking(LocalDate.of(2021, 6, 25), LocalDate.of(2021, 6, 27), a101, 150);
+		Booking booking1 = new Booking(LocalDate.of(2021, 6, 20), LocalDate.of(2021, 6, 24), a101);
+		Booking booking2 = new Booking(LocalDate.of(2021, 6, 25), LocalDate.of(2021, 6, 27), a101);
 		a101.setBookings(List.of(booking1,booking2));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -88,7 +88,7 @@ public class RoomServiceIntegrationTest {
 	public void conflictedDatesTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -103,7 +103,7 @@ public class RoomServiceIntegrationTest {
 	public void requestDateNullTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -129,7 +129,7 @@ public class RoomServiceIntegrationTest {
 	public void requestDateFromAfterRequestDateToTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -157,7 +157,7 @@ public class RoomServiceIntegrationTest {
 	public void requestPriceFromGreaterThanPriceTo() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 24), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -177,7 +177,7 @@ public class RoomServiceIntegrationTest {
 	public void requestPriceFromAndPriceToNullTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -195,7 +195,7 @@ public class RoomServiceIntegrationTest {
 	public void roomPriceHigherThanRequestPriceRangeTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -213,7 +213,7 @@ public class RoomServiceIntegrationTest {
 	public void roomPriceLowerThanRequestPriceRangeTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -231,7 +231,7 @@ public class RoomServiceIntegrationTest {
 	public void roomPriceInsideRequestPriceRangeTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -250,7 +250,7 @@ public class RoomServiceIntegrationTest {
 	public void requestPriceRangeSameAsRoomPriceTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 6, 22), LocalDate.of(2021, 6, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		SearchRequest req = getBasicRequest();
@@ -268,7 +268,7 @@ public class RoomServiceIntegrationTest {
 	public void conflictingRequestDateFromTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 23), LocalDate.of(2021, 5, 25), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 23), LocalDate.of(2021, 5, 25), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -283,7 +283,7 @@ public class RoomServiceIntegrationTest {
 	public void conflictingRequestDateToTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 20), LocalDate.of(2021, 5, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -298,7 +298,7 @@ public class RoomServiceIntegrationTest {
 	public void conflictingBothRequestDatesOutsideOfRangeTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 19), LocalDate.of(2021, 5, 25), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 19), LocalDate.of(2021, 5, 25), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -313,7 +313,7 @@ public class RoomServiceIntegrationTest {
 	public void conflictingBothRequestDatesInsideOfRangeTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 5, 22), LocalDate.of(2021, 5, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 5, 22), LocalDate.of(2021, 5, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -328,7 +328,7 @@ public class RoomServiceIntegrationTest {
 	public void notConflictingRequestDatesBeforeBookedDatesTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 4, 22), LocalDate.of(2021, 4, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 4, 22), LocalDate.of(2021, 4, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
@@ -343,7 +343,7 @@ public class RoomServiceIntegrationTest {
 	public void notConflictingRequestDatesAfterBookedDatesTest() {
 		HotelEntity hotel = new HotelEntity();
 		RoomEntity a101 = new RoomEntity("A101", RoomType.DOUBLE, 105);
-		Booking booking = new Booking(LocalDate.of(2021, 7, 22), LocalDate.of(2021, 7, 23), a101, 150);
+		Booking booking = new Booking(LocalDate.of(2021, 7, 22), LocalDate.of(2021, 7, 23), a101);
 		a101.setBookings(List.of(booking));
 		hotel.setRooms(Set.of(a101));
 		var rooms = roomService.filteredRooms(hotel.getRooms(), getBasicRequest());
