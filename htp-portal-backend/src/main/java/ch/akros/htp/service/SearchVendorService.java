@@ -40,7 +40,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Slf4j
 public class SearchVendorService {
-	@Value("${vendors}")
+	@Value("#{environment.vendors}")
 	private String[] vendorUrls;
 
 	private final WebClient webClient;
@@ -55,9 +55,13 @@ public class SearchVendorService {
 	 */
 	public List<SearchResponse> getSearchResponsesFromVendors(SearchRequest req) {
 		System.getenv().entrySet().stream()
-				.forEach(e -> log.info(String.format("env : %s => %s\n", e.getKey(), e.getValue())));
+				.forEach(e -> log.info(String.format("env : %s => %s", e.getKey(), e.getValue())));
 		System.getProperties().entrySet().stream()
-				.forEach(e -> log.info(String.format("prop : %s => %s\n", e.getKey(), e.getValue())));
+				.forEach(e -> log.info(String.format("prop : %s => %s", e.getKey(), e.getValue())));
+
+		if (vendorUrls == null || vendorUrls.length == 0) {
+			vendorUrls = System.getenv().get("vendors").split("\\/");
+		}
 
 		return stream(vendorUrls).map(u -> getResponses(req, u)).flatMap(List::stream).collect(toList());
 	}
