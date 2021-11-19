@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.github.jknack.handlebars.internal.lang3.builder.ReflectionToStringBuilder;
+import com.github.jknack.handlebars.internal.lang3.builder.ToStringStyle;
 import com.google.common.reflect.TypeToken;
 import com.microsoft.applicationinsights.core.dependencies.google.gson.GsonBuilder;
 import com.microsoft.applicationinsights.core.dependencies.google.gson.JsonDeserializer;
@@ -54,16 +56,21 @@ public class SearchVendorService {
 	 * @return a ResponseEntity containing list of search responses.
 	 */
 	public List<SearchResponse> getSearchResponsesFromVendors(SearchRequest req) {
+		log.info(ReflectionToStringBuilder.toString(req, ToStringStyle.MULTI_LINE_STYLE));
+
 		System.getenv().entrySet().stream()
 				.forEach(e -> log.info(String.format("env : %s => %s", e.getKey(), e.getValue())));
 		System.getProperties().entrySet().stream()
 				.forEach(e -> log.info(String.format("prop : %s => %s", e.getKey(), e.getValue())));
 
-		if (vendorUrls == null || vendorUrls.length == 0) {
-			vendorUrls = System.getenv().get("vendors").split("\\/");
-		}
+		log.info("vendors: {}", vendorUrls);
 
-		return stream(vendorUrls).map(u -> getResponses(req, u)).flatMap(List::stream).collect(toList());
+		return stream(vendorUrls) //
+				.peek(e -> log.info("url:" + e))//
+				.map(u -> getResponses(req, u)) //
+				.flatMap(List::stream) //
+				.peek(e -> log.info(ReflectionToStringBuilder.toString(e, ToStringStyle.MULTI_LINE_STYLE))) //
+				.collect(toList());
 	}
 
 	private List<SearchResponse> getResponses(SearchRequest request, String url) {
