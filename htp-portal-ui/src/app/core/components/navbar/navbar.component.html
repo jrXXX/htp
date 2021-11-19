@@ -1,0 +1,44 @@
+<mat-toolbar-row>
+  <div class="first-container-wrapper">
+    <button mat-icon-button (click)="onSideNavToggle.emit()" aria-label="Menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <img src="assets/akros-logo.jpg" width="200" alt="Akros Logo" />
+    <mat-button-toggle-group
+      name="languageSettings"
+      aria-label="Language settings"
+    >
+      <mat-button-toggle
+        *ngFor="let language of languageTranslate.getLangs()"
+        (change)="languageTranslate.use($event.value)"
+        [value]="language"
+      >
+        {{ "language." + language | translate }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="second-container-wrapper">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onLogin.emit()"
+      *ngIf="isLogout"
+    >
+      {{ "authenticate.button.signIn" | translate }}
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onLogout.emit()"
+      *ngIf="isLogin"
+    >
+      {{ "authenticate.button.signOut" | translate }}
+    </button>
+    <div *ngIf="isLogin">
+      <div class="mat-h2">
+        {{ "authenticate.message" | translate }} {{ accountName }}
+      </div>
+    </div>
+  </div>
+</mat-toolbar-row>

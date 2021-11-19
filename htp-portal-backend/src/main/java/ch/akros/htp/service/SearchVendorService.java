@@ -69,6 +69,7 @@ public class SearchVendorService {
 				.peek(e -> log.info("url:" + e))//
 				.map(u -> getResponses(req, u)) //
 				.flatMap(List::stream) //
+				.filter(e-> e != null) //
 				.peek(e -> log.info(ReflectionToStringBuilder.toString(e, ToStringStyle.MULTI_LINE_STYLE))) //
 				.collect(toList());
 	}

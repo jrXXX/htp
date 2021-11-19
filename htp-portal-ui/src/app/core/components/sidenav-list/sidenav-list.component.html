@@ -1,0 +1,35 @@
+<mat-nav-list (click)="onToggleSideNavBar.emit()">
+  <a
+    mat-list-item
+    routerLink="/home"
+    [ngClass]="{ 'activated-route': route.url === '/home' }"
+  >
+    <mat-icon>home</mat-icon>
+    {{ "navigationBar.homePage" | translate }}
+  </a>
+  <a
+    mat-list-item
+    routerLink="/hotel-search"
+    [ngClass]="{ 'activated-route': route.url === '/hotel-search' }"
+  >
+    <mat-icon>search</mat-icon>
+    {{ "navigationBar.searchHotel" | translate }}
+  </a>
+  <a
+    mat-list-item
+    routerLink="/about"
+    [ngClass]="{ 'activated-route': route.url === '/about' }"
+  >
+    <mat-icon>info</mat-icon>
+    {{ "navigationBar.about" | translate }}
+  </a>
+  <a
+    href="https://akros.ch"
+    target="_blank"
+    rel="noopener noreferrer"
+    mat-list-item
+  >
+    <mat-icon>home</mat-icon>
+    {{ "navigationBar.toOurHomepage" | translate }}
+  </a>
+</mat-nav-list>

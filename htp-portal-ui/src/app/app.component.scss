@@ -1,0 +1,27 @@
+.toolbar {
+  border-bottom: 1px solid black;
+  height: 85px;
+  padding: 15px 0;
+  background: white;
+}
+
+akros-navbar {
+  width: 100%;
+}
+
+.mat-drawer,
+.mat-sidenav {
+  width: 200px !important;
+}
+
+svg#clouds {
+  position: fixed;
+  bottom: -160px;
+  left: -230px;
+  z-index: -10;
+  width: 1920px;
+}
+
+mat-sidenav-container {
+  width: 13rem;
+}

@@ -1,0 +1,16 @@
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+$htp-app-primary: mat-palette($mat-red, 700);
+$htp-app-accent: mat-palette($mat-red, 50);
+
+$htp-app-warn: mat-palette($mat-red, 900);
+
+$htp-app-theme: mat-light-them(
+  $htp-app-primary,
+  $htp-app-accent,
+  $htp-app-warn
+);
+
+@include angular-material-them($htp-app-theme);

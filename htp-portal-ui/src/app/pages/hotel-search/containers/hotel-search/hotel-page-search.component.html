@@ -1,0 +1,28 @@
+<akros-hotel-search-box
+  [allFacilities]="allFacilities$ | async"
+  [countryList]="countryList$ | async"
+  [searchItem]="searchItem"
+  (searchFormValue)="onSubmit($event)"
+></akros-hotel-search-box>
+<!--  -->
+<div class="content">
+  <akros-loading></akros-loading>
+  <ng-container *ngIf="searchResponse$ | async as searchResponse">
+    <div *ngIf="searchResponse && searchResponse.length === 0">
+      <p>
+        Für den ausgewählten Zeitraum sind keine Hotel verfügbar. Bitte ändere
+        die Daten deiner Hotelsuche
+      </p>
+    </div>
+    <ng-container *ngFor="let bookingResponse of searchResponse">
+      <div class="hotel-card-item">
+        <akros-hotel-card
+          [bookingResponse]="bookingResponse"
+          *ngFor="let room of bookingResponse.hotel.rooms"
+          [room]="room"
+        ></akros-hotel-card>
+      </div>
+    </ng-container>
+  </ng-container>
+</div>
+<!-- <div>{{ getShareUrl() | json }}</div> -->

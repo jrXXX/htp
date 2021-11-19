@@ -1,0 +1,21 @@
+@import "../../../../styles/variables";
+
+mat-icon {
+  margin-right: 0.6rem;
+}
+
+.mat-nav-list .mat-list-item {
+  color: $normal-color;
+  width: 95%;
+  left: 0.3rem;
+}
+
+.mat-nav-list .mat-list-item:hover {
+  color: $active-color !important;
+}
+
+.activated-route {
+  font-size: 1.3rem;
+  background: rgba(0, 0, 0, 0.04);
+  color: $active-color !important;
+}

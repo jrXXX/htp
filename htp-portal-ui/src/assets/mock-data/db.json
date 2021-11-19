@@ -1,0 +1,204 @@
+{
+  "hotelSearch": [
+    {
+      "currency": "CHF",
+      "dateFrom": "2021-06-10",
+      "dateTo": "2021-06-10",
+      "numberOfGuests": 3,
+      "hotel": {
+        "id": 0,
+        "name": "Novotel",
+        "country": {
+          "id": 0,
+          "name": "Switzerland",
+          "countryCode": "ch"
+        },
+        "stars": 4,
+        "zipCode": "3000",
+        "city": "Bern",
+        "street": "Langgasse",
+        "houseNumber": "1",
+        "homepage": "https://novotel.accor.com/fr/switzerland/index.shtml",
+        "price": 0,
+        "facilityList": [
+          {
+            "id": 0,
+            "name": "Terrace"
+          },
+          {
+            "id": 1,
+            "name": "Pool"
+          }
+        ],
+        "image": [
+          {
+            "id": 0,
+            "name": "Inside",
+            "width": 0,
+            "height": 0,
+            "downloadUrl": "../assets/mock-data/ph-hotel.jpg"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "name": "King's",
+            "type": "KING",
+            "price": 200,
+            "currency": "CHF",
+            "deepLink": "http://www.hotelvictoriaparis.com/fr/index.php"
+          }
+        ]
+      }
+    },
+    {
+      "currency": "CHF",
+      "dateFrom": "2021-06-10",
+      "dateTo": "2021-06-10",
+      "numberOfGuests": 2,
+      "hotel": {
+        "id": 0,
+        "name": "Victoria",
+        "country": {
+          "id": 0,
+          "name": "France",
+          "countryCode": "fr"
+        },
+        "stars": 2,
+        "zipCode": "75009",
+        "city": "Paris",
+        "street": "2bis Cité Bergère",
+        "houseNumber": "1",
+        "homepage": "http://www.hotelvictoriaparis.com/fr/index.php",
+        "price": 0,
+        "facilityList": [
+          {
+            "id": 0,
+            "name": "Terrace"
+          }
+        ],
+        "image": [
+          {
+            "id": 0,
+            "name": "Outside",
+            "width": 0,
+            "height": 0,
+            "downloadUrl": "../assets/mock-data/ph-hotel.jpg"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "name": "King's",
+            "type": "KING",
+            "price": 200,
+            "currency": "CHF",
+            "deepLink": "http://www.hotelvictoriaparis.com/fr/index.php"
+          }
+        ]
+      }
+    },
+    {
+      "currency": "EUR",
+      "dateFrom": "2021-06-10",
+      "dateTo": "2021-06-10",
+      "numberOfGuests": 1,
+      "hotel": {
+        "id": 0,
+        "name": "Ibis",
+        "country": {
+          "id": 0,
+          "name": "Germany",
+          "countryCode": "de"
+        },
+        "stars": 3,
+        "zipCode": "10249",
+        "city": "Berlin",
+        "street": "Mollstraße",
+        "houseNumber": "30",
+        "homepage": "https://all.accor.com",
+        "price": 0,
+        "facilityList": [
+          {
+            "id": 0,
+            "name": "Washing machine"
+          },
+          {
+            "id": 1,
+            "name": "Bathtub"
+          },
+          {
+            "id": 2,
+            "name": "Lift"
+          },
+          {
+            "id": 3,
+            "name": "Wi-Fi"
+          }
+        ],
+        "image": [
+          {
+            "id": 1,
+            "name": "Inside",
+
+            "width": 300,
+            "height": 300,
+            "downloadUrl": "../assets/mock-data/ph-hotel.jpg"
+          }
+        ],
+        "rooms": [
+          {
+            "id": 0,
+            "name": "King's",
+            "type": "KING",
+            "price": 200,
+            "currency": "CHF",
+            "deepLink": "https://all.accor.com/hotel/5513"
+          },
+          {
+            "id": 1,
+            "name": "King's",
+            "type": "KING",
+            "price": 200,
+            "currency": "CHF",
+            "deepLink": "https://all.accor.com/hotel/5513"
+          }
+        ]
+      }
+    }
+  ],
+  "facilities": [
+    {
+      "id": 0,
+      "name": "Terrace"
+    },
+    {
+      "id": 1,
+      "name": "Lobby"
+    },
+    {
+      "id": 2,
+      "name": "Bellevue Bar"
+    },
+    {
+      "id": 3,
+      "name": "SPA"
+    },
+    {
+      "id": 4,
+      "name": "Pool"
+    },
+    {
+      "id": 5,
+      "name": "WiFi"
+    },
+    {
+      "id": 6,
+      "name": "Bar"
+    },
+    {
+      "id": 7,
+      "name": "Fitness"
+    }
+  ]
+}

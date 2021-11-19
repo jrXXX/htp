@@ -1,0 +1,61 @@
+<mat-card class="mat-elevation-z4">
+  <mat-card-header>
+    <div mat-card-avatar></div>
+    <mat-card-title>
+      <span>{{ bookingResponse.hotel.name }}</span>
+      <span>
+        <mat-icon *ngFor="let _ of stars(bookingResponse.hotel.stars)">
+          stars
+        </mat-icon>
+      </span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <strong>
+        {{ bookingResponse.hotel.zipCode }}
+        {{ bookingResponse.hotel.city }},
+        {{ bookingResponse.hotel.street }}
+        {{ bookingResponse.hotel.houseNumber }}
+      </strong>
+      <br />
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content class="roomList">
+    <div
+      (window:resize)="onResize($event)"
+      [class.fullWidth]="colsToDisplay == 1"
+      [class.roomListContent]="colsToDisplay > 1"
+    >
+      <div class="g1" fxflex="none" *ngIf="bookingResponse.hotel.image !== null">
+        <ng-image-slider
+          [images]="bookingResponse.hotel.image | transformBackendImagesPipe"
+          #nav
+          class="slider"
+        ></ng-image-slider>
+      </div>
+      <div class="g2" fxflex>
+        <mat-card-content>
+          {{ room.name }}
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <p *ngFor="let facility of bookingResponse.hotel.facilities">
+          {{ facility.name }}
+          <br />
+        </p>
+      </div>
+      <div class="g3" fxflex>
+        <mat-card-content>
+          {{ bookingResponse.currency }} {{ room.price }}
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <p>Guests: {{ bookingResponse.numberOfGuests }}</p>
+        <p>{{ bookingResponse.dateFrom }} - {{ bookingResponse.dateTo }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions fxLayoutAlign="center">
+    <a [href]="room.deepLink" target="_blank" mat-raised-button color="primary">
+      jetzt buchen
+    </a>
+  </mat-card-actions>
+</mat-card>

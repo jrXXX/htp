@@ -1,0 +1,23 @@
+# see https://dzone.com/articles/how-to-dockerize-angular-app
+
+# Stage 1
+FROM timbru31/java-node:jdk-14  as build-step
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json /app
+#COPY /tools/openapi-generator/.build /app/src/app/api
+
+RUN npm install
+COPY . /app
+#this line only works if the backend is running and serves the correct openapi files
+# RUN npm run build
+#for the build-production with a running server on azure that serves the correct openapi files:
+RUN npm run build-local-docker 
+
+# Stage 2
+FROM nginx:latest
+COPY --from=build-step /app/dist/htp-portal-ui /usr/share/nginx/html/
+COPY /docker/default.conf /etc/nginx/conf.d/
+
+# When the container starts, replace the env.js with values from environment variables
+CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]

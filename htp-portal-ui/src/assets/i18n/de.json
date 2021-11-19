@@ -1,0 +1,36 @@
+{
+  "authenticate": {
+    "button": {
+      "signIn": "Einloggen",
+      "signOut": "Ausloggen"
+    },
+    "message": "Eingeloggt als"
+  },
+  "navigationBar": {
+    "homePage": "Startseite",
+    "searchHotel": "Hotels",
+    "about": "Über",
+    "toOurHomepage": "Zu unserer Startseite"
+  },
+  "languageSelect": "Wählen Sie Ihre Sprache",
+  "page": {
+    "searchHotel": {
+      "destinationCountry": "Zielland",
+      "destinationCity": "Zielstadt",
+      "destinationPostalCode": "Zielpostleitzahl",
+      "hotelName": "Hotelname",
+      "priceFrom": "Preis von",
+      "priceTo": "Preis zu",
+      "currency": "Währung",
+      "dateRange": "Wählen Sie ein Datum",
+      "durationDays": "Dauer in Tagen",
+      "numberOfGuests": "Anzahl der Gäste",
+      "facilityList": "Anlagen"
+    }
+  },
+  "language": {
+    "en": "Englisch",
+    "de": "Deutsch",
+    "fr": "Französisch"
+  }
+}

@@ -1,0 +1,150 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" bindQueryParameters>
+  <div>
+    <share-button
+      [theme]="'classic-light'"
+      [button]="'copy'"
+      [showText]="true"
+      [url]="getShareUrl()"
+      [autoSetMeta]="false"
+    ></share-button>
+  </div>
+
+  <mat-grid-list cols="5" rowHeight="3:1" gutterSize="5">
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "page.searchHotel.destinationCountry" | translate }}
+        </mat-label>
+        <input
+          matInput
+          required
+          placeholder="Ex. England"
+          formControlName="destinationCountry"
+          [matAutocomplete]="auto"
+          #destinationCountry
+          [value]="destinationCountry"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <ng-container *ngFor="let country of countryList">
+            <mat-option
+              *ngIf="country.match(destinationCountry.value)"
+              [value]="country"
+            >
+              {{ country }}
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "page.searchHotel.destinationCity" | translate }}
+        </mat-label>
+        <input
+          matInput
+          required
+          placeholder="Ex. Lausanne"
+          formControlName="destinationCity"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "page.searchHotel.destinationPostalCode" | translate }}
+        </mat-label>
+        <input
+          matInput
+          placeholder="Ex. 3063"
+          formControlName="destinationPostalCode"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.hotelName" | translate }}</mat-label>
+        <input matInput placeholder="Ex. Novotel" formControlName="hotelName" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.priceFrom" | translate }}</mat-label>
+        <input matInput placeholder="Ex. 100" formControlName="priceFrom" type="number"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.priceTo" | translate }}</mat-label>
+        <input matInput placeholder="Ex. 500" formControlName="priceTo" type="number"/>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.currency" | translate }}</mat-label>
+        <input matInput placeholder="Ex. CHF" formControlName="currency" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.dateRange" | translate }}</mat-label>
+        <mat-date-range-input
+          required
+          [rangePicker]="picker"
+          [min]="minDate"
+        >
+          <input
+            matStartDate
+            formControlName="dateFrom"
+            placeholder="Start date"
+          />
+          <input
+            matEndDate
+            formControlName="dateTo"
+            placeholder="End date"
+            (dateChange)="checkDuration()"
+          />
+        </mat-date-range-input>
+        <p *ngIf="errorMessage">duration have to be less than 10 days!</p>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ "page.searchHotel.numberOfGuests" | translate }}
+        </mat-label>
+        <input
+          type="number"
+          min="1"
+          matInput
+          placeholder="Ex. 2"
+          formControlName="numberOfGuests"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ "page.searchHotel.facilityList" | translate }}</mat-label>
+        <mat-select formControlName="facilityList" multiple>
+          <mat-option *ngFor="let facility of allFacilities" [value]="facility">
+            {{ facility.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <button
+    fxLayoutAlign="center center"
+    [disabled]="searchForm.invalid"
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+</form>

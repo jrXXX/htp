@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./styles/variables";
+
+html,
+body {
+  height: 95%;
+}
+git body {
+  margin: 0;
+  font-family: $roboto-sans !important;
+}
+
+.content {
+  display: flex;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content > div {
+  width: 75%;
+}
+.content > div > mat-card {
+  margin: 0 16px 16px 0;
+  width: 100%;
+}
+
+.content .mat-grid-tile-content {
+  display: block;
+}
+
+.roomList .roomListContent {
+  display: flex;
+}
+
+.roomList .fullWidth {
+  display: block;
+}
+
+.roomList .roomListContent mat-divider {
+  position: inherit;
+}
+
+.roomList {
+  .g1 {
+    flex: 0 0 225px;
+  }
+  .g2 {
+    flex: 1 1 0%;
+    padding: 0 15px;
+  }
+  .g3 {
+    flex: 0 0 215;
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .roomList .g3 {
+    flex: 0 0 100px;
+  }
+}

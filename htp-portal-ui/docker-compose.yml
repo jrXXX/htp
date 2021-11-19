@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+    openapi_generator:
+        build:
+            context: ./tools/openapi-generator
+            dockerfile: Dockerfile
+        volumes:
+            - ./src/app/api:/local/out
+    htp:
+        container_name: htp_ui
+        depends_on:
+            - openapi_generator
+        build:
+            context: .
+            dockerfile: "Dockerfile-Prod"

@@ -1,0 +1,16 @@
+img {
+  margin: 0 16px;
+}
+
+.mat-toolbar-row {
+  width: inherit;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.first-container-wrapper,
+.second-container-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

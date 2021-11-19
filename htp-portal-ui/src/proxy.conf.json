@@ -1,0 +1,10 @@
+{
+  "/api/*": {
+    "target": "https://htp-portal-backend.azurewebsites.net",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true
+  }
+}

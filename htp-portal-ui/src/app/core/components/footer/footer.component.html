@@ -1,0 +1,14 @@
+<footer>
+  <div>
+    {{ "languageSelect" | translate }}
+    <select #langSelect (change)="languageService.use(langSelect.value)">
+      <option
+        *ngFor="let lang of languageService.getLangs()"
+        [value]="lang"
+        [selected]="lang === languageService.currentLang"
+      >
+        {{ lang }}
+      </option>
+    </select>
+  </div>
+</footer>

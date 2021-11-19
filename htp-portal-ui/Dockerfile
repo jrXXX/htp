@@ -1,0 +1,18 @@
+# see https://dzone.com/articles/how-to-dockerize-angular-app
+
+# Stage 1
+FROM node:14-alpine as build-step
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json /app
+RUN npm install
+COPY . /app
+# this line only works if the backend is running and serves the correct openapi files
+RUN npm run build
+# for the build-production with a running server on azure that serves the correct openapi files:
+# RUN npm run build-prod-docker
+
+# Stage 2
+FROM nginx:latest
+COPY --from=build-step /app/dist/htp-portal-ui /usr/share/nginx/html/
+COPY /docker/default.conf /etc/nginx/conf.d/
