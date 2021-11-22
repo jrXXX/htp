@@ -4,6 +4,9 @@ FROM node:alpine
 # set the working direction
 WORKDIR /app
 
+RUN chgrp -R 0 /app 
+ && chmod -R g=u /app
+
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
@@ -24,6 +27,9 @@ ENV REACT_APP_VENDOR_TYPE $REACT_APP_VENDOR_TYPE
 
 # add app
 COPY . ./
+
+RUN chgrp -R 0 /app 
+ && chmod -R g=u /app
 
 # start app
 CMD ["npm", "start"]
