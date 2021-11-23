@@ -17,11 +17,11 @@ COPY . /app
 RUN npm run build-local-docker 
 
 # Stage 2
-FROM nginx:latest
-COPY --from=build-step /app/dist/htp-portal-ui /usr/share/nginx/html/
-COPY /docker/default.conf /etc/nginx/conf.d/
+#FROM nginx:latest
+#COPY --from=build-step /app/dist/htp-portal-ui /usr/share/nginx/html/
+#COPY /docker/default.conf /etc/nginx/conf.d/
 
-RUN chgrp -R 0 /app && chmod -R g=u /app
+#RUN chgrp -R 0 /app && chmod -R g=u /app
 
 # When the container starts, replace the env.js with values from environment variables
-CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
+#CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/html/assets/env.template.js > /usr/share/nginx/html/assets/env.js && exec nginx -g 'daemon off;'"]
