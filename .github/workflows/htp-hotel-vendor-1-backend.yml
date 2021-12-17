@@ -23,7 +23,3 @@ jobs:
     - name: Build with DotNet
       run: dotnet build "Vendor.Backend.Startup.csproj" -c Release
       working-directory: ./htp-hotel-vendor-1-backend
-
-    - name: PublishDotNet
-      run: dotnet publish "Vendor.Backend.Startup.csproj" -c Release
-      working-directory: ./htp-hotel-vendor-1-backend
