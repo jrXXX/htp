@@ -11,5 +11,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - run: npm install
+        working-directory: ./htp-portal-ui
       - run: npm run build-local-docker 
         working-directory: ./htp-portal-ui
