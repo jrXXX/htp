@@ -1,0 +1,114 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+- main
+- feature/*
+
+variables:
+  ImageName: htp-vendor-backend-1
+
+stages:
+- stage: Build_Docker
+  displayName: Build image (Docker)
+  jobs:
+  - job: Build
+    displayName: Build Docker
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DockerInstaller@0
+      displayName: DockerInstaller - 18.06.1-ce
+      inputs:
+        dockerVersion: '18.06.1-ce'
+    - task: Docker@2
+      displayName: Build $(ImageName)
+      inputs:
+        repository: '$(ImageName)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        container: $(ImageName)
+        tags: latest
+        arguments: -t $(ImageName):$(Build.BuildId)
+
+    - task: Docker@0
+      displayName: show all docker images
+      inputs:
+        action: Run a Docker command
+        customCommand: 'images'
+
+    - task: Docker@0
+      displayName: save $(ImageName):$(Build.BuildId)
+      inputs:
+        action: Run a Docker command
+        customCommand: 'save -o $(Build.ArtifactStagingDirectory)/$(ImageName).tar $(ImageName):$(Build.BuildId)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).docker'
+        publishLocation: 'Container'
+
+#    - task: UniversalPackages@0
+#      inputs:
+#        command: 'publish'
+#        publishDirectory: '$(Build.ArtifactStagingDirectory)'
+#        feedsToUsePublish: 'internal'
+#        vstsFeedPublish: 'd6897ff6-ffba-4fc3-b90e-cb34cda53800'
+#        vstsFeedPackagePublish: 'htp-hotel-vendor-1-backend'
+#        versionOption: 'patch'
+
+- stage: Build_Core
+  displayName: Build image (.Net Core)
+  jobs:
+  - job: Build
+    displayName: Build (.Net Core)
+    pool:
+      vmImage: 'windows-latest'
+
+    variables:
+      solution: '**/*.sln'
+      buildPlatform: 'Any CPU'
+      buildConfiguration: 'Release'
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+        command: 'restore'
+        projects: '$(solution)'
+
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: build
+        projects: '$(solution)'
+        arguments: '--configuration Release'
+
+    - task: DotNetCoreCLI@2
+      displayName: Test
+      inputs:
+        command: test
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish and zip'
+      inputs:
+        command: publish
+        publishWebProjects: False
+        projects: $(solution)
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(ImageName).dotnet'
+        publishLocation: 'Container'
+

@@ -1,0 +1,52 @@
+version: "3.7"
+
+services:
+    openapi_generator:
+        build:
+            context: ./tools/openapi-generator
+            dockerfile: Dockerfile
+        volumes:
+            - ./tools/openapi-generator/build:/local/out
+            - .:/out
+#  backend:
+#    build: .
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - POSTGRES_DB=holiday
+#    networks:
+#      - spring-postgres
+#  db:
+#    image: postgres:13
+#    hostname: postgres
+#    restart: always
+#    ports:
+#      - 5432:5432
+#    secrets:
+#      - db-password
+#    volumes:
+#      - db-data:/var/lib/postgresql/data
+#    networks:
+#      - spring-postgres
+#    environment:
+#      - POSTGRES_DB=holiday
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    depends_on:
+#      - db
+#    ports:
+#      - 5555:80
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: vogesi@akros.ch
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#    restart: always
+#
+#volumes:
+#  db-data:
+#secrets:
+#  db-password:
+#    file: db/password.txt
+#networks:
+#  spring-postgres:

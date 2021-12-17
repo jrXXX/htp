@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+.vs/*
+*/bin/Debug
+*/bin/Release
+*/obj
+*/**/bin/Debug
+*/**/bin/Release
+*/**/obj
+*.user
+/tools/openapi-generator/build
