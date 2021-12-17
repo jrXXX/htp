@@ -3,7 +3,13 @@ name: htp-hotel-vendor-ui
 on:
   workflow_dispatch:
 
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  working-directory: ./htp-hotel-vendor-ui
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm run build-local-docker 
+        working-directory: ./htp-hotel-vendor-ui
