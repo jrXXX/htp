@@ -17,6 +17,6 @@ jobs:
       with:
         dotnet-version: 3.0.100
 
-    - name: Build with Maven
-      run: mvn -B clean install
-      working-directory: ./htp-hotel-vendor-1-backend
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
