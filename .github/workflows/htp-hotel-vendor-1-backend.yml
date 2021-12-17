@@ -19,4 +19,4 @@ jobs:
 
     - name: Build with dotnet
       run: dotnet build "Vendor.Backend.Startup.csproj" -c Release
-      working-directory: ./htp-hotel-vendor-1-backend
+      working-directory: ./htp-hotel-vendor-1-backend/src/Akros.Htp.Vendor.Backend.Startup
