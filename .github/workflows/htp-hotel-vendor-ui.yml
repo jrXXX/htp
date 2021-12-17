@@ -1,4 +1,4 @@
-name: htp-portal-ui
+name: htp-hotel-vendor-ui
 
 on:
   workflow_dispatch:
@@ -12,6 +12,4 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
-        working-directory: ./htp-portal-ui
-      - run: npm run build-local-docker 
         working-directory: ./htp-portal-ui
