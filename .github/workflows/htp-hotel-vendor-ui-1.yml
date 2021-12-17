@@ -1,0 +1,9 @@
+name: htp-hotel-vendor-ui
+
+on:
+  workflow_dispatch:
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  working-directory: ./htp-hotel-vendor-ui
