@@ -26,5 +26,5 @@ jobs:
       run: mvn -B clean install
       working-directory: ./htp-portal-backend
 
-    - uses: actions/hello-world-docker-action@v1
     - name: Build Image
+    - uses: actions/hello-world-docker-action@v1
