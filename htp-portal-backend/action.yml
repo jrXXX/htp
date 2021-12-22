@@ -1,0 +1,5 @@
+# action.yml
+name: 'Run Docker for htp-portal-backend'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
