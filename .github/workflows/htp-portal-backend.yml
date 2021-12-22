@@ -26,6 +26,12 @@ jobs:
       run: mvn -B clean install
       working-directory: ./htp-portal-backend
 
+  create_image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
     - uses: actions/hello-world-docker-action@v1
     - name: Build Image
