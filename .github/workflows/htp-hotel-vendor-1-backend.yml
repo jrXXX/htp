@@ -35,6 +35,6 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        context: ./htp-portal-backend
+        context: ./htp-hotel-vendor-1-backend
         push: true
-        tags: htp-portal-backend:1.0.0
+        tags: htp-hotel-vendor-1-backend:1.0.0
