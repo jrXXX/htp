@@ -44,3 +44,4 @@ jobs:
       with:
         context: ./htp-portal-backend
         push: true
+        tags: htp-portal-backend:1.0.0
